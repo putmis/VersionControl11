@@ -27,6 +27,7 @@ namespace UserMaintenance
             
             button1.Text = Resource1.Add;
             button2.Text = Resource1.Kiiras;
+            button3.Text = Resource1.Delete;
 
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
@@ -65,5 +66,13 @@ namespace UserMaintenance
                 }
             }
         }
+
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    int oID = Convert.ToInt32(listBox1.SelectedValue);
+        //    var od = from x in listBox1.SelectedItem
+        //             where x.ID = oID
+        //             select x;
+        //}
     }
 }
