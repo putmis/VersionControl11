@@ -40,9 +40,9 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(463, 80);
+            this.dataGridView1.Location = new System.Drawing.Point(403, 12);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(385, 426);
             this.dataGridView1.TabIndex = 0;
             // 
             // chartRateData
@@ -57,7 +57,7 @@
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartRateData.Series.Add(series1);
-            this.chartRateData.Size = new System.Drawing.Size(300, 333);
+            this.chartRateData.Size = new System.Drawing.Size(385, 426);
             this.chartRateData.TabIndex = 1;
             this.chartRateData.Text = "chart1";
             // 

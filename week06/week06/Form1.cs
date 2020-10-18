@@ -21,10 +21,22 @@ namespace week06
         public Form1()
         {
             InitializeComponent();
-            dataGridView1.DataSource = rates;
+
+            harmadik();
+            xmlfunction();
+            diagram();
             
 
 
+
+            
+            
+
+
+        }
+        private void harmadik()
+        {
+            
 
             var mnbService = new MnbServiceReference.MNBArfolyamServiceSoapClient();
 
@@ -38,9 +50,7 @@ namespace week06
             var response = mnbService.GetExchangeRates(request);
             result = response.GetExchangeRatesResult;
 
-            
-
-
+            dataGridView1.DataSource = rates;
         }
 
         private void xmlfunction()
