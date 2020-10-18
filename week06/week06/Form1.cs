@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml;
 using week06.Entities;
+using week06.MnbServiceReference;
 
 namespace week06
 {
@@ -22,13 +23,13 @@ namespace week06
         {
             InitializeComponent();
             RefreshData();
-            
+
             
 
 
-                     
-            
-            
+
+
+
         }
         private void RefreshData()
         {
@@ -38,20 +39,20 @@ namespace week06
             xmlfunction();
             diagram();
 
-
+            dataGridView1.DataSource = rates;
 
         }
 
 
-        void harmadik()
+       private void harmadik()
         {
             
 
-            var mnbService = new MnbServiceReference.MNBArfolyamServiceSoapClient();
+            var mnbService = new MNBArfolyamServiceSoapClient();
 
-            var request = new MnbServiceReference.GetExchangeRatesRequestBody()
+            var request = new GetExchangeRatesRequestBody()
             {
-                currencyNames = Convert.ToString(comboBox1.SelectedItem),
+                 currencyNames= Convert.ToString(comboBox1.SelectedItem),
                 //currencyNames = "EUR",
                 startDate = Convert.ToString(dateTimePicker1.Value),
                 endDate = Convert.ToString(dateTimePicker2.Value),
@@ -60,31 +61,24 @@ namespace week06
             var response = mnbService.GetExchangeRates(request);
             result = response.GetExchangeRatesResult;
 
-            dataGridView1.DataSource = rates;
+            
         }
 
-         void xmlfunction()
+         private void xmlfunction()
         {
-            // XML document létrehozása és az aktuális XML szöveg betöltése
             var xml = new XmlDocument();
             xml.LoadXml(result);
 
-            // Végigmegünk a dokumentum fő elemének gyermekein
             foreach (XmlElement element in xml.DocumentElement)
             {
-                // Létrehozzuk az adatsort és rögtön hozzáadjuk a listához
-                // Mivel ez egy referencia típusú változó, megtehetjük, hogy előbb adjuk a listához és csak később töltjük fel a tulajdonságait
                 var rate = new RateData();
                 rates.Add(rate);
 
-                // Dátum
                 rate.Date = DateTime.Parse(element.GetAttribute("date"));
 
-                // Valuta
                 var childElement = (XmlElement)element.ChildNodes[0];
                 rate.Currency = childElement.GetAttribute("curr");
 
-                // Érték
                 var unit = decimal.Parse(childElement.GetAttribute("unit"));
                 var value = decimal.Parse(childElement.InnerText);
                 if (unit != 0)
@@ -92,7 +86,7 @@ namespace week06
             }
         }
 
-         void diagram()
+        private void diagram()
         {
             chartRateData.DataSource = rates;
 
@@ -109,6 +103,10 @@ namespace week06
             chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisY.MajorGrid.Enabled = false;
             chartArea.AxisY.IsStartedFromZero = false;
+        }
+        private void chartRateData_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
